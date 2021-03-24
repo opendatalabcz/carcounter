@@ -1,4 +1,14 @@
 import pandas as pd
+import cv2
+
+
+
+
+file_path = "./vdo.avi"  # change to your own video path
+vid = cv2.VideoCapture(file_path)
+video_height = vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
+video_width = vid.get(cv2.CAP_PROP_FRAME_WIDTH)
+
 
 # readinag given csv file
 # and creating dataframe
@@ -8,10 +18,10 @@ dataframe1 = dataframe1.drop(['7', '8', '9', '10'], axis=1)
 dataframe1['object_class'] = 0
 dataframe1['x_center'] = dataframe1['x_center'] + dataframe1['width'] / 2
 dataframe1['y_center'] = dataframe1['y_center'] + dataframe1['heigth'] / 2
-dataframe1['x_center'] = dataframe1['x_center'] / 1920
-dataframe1['y_center'] = dataframe1['y_center'] / 1080
-dataframe1['width'] = dataframe1['width'] / 1920
-dataframe1['heigth'] = dataframe1['heigth'] / 1080
+dataframe1['x_center'] = dataframe1['x_center'] / video_width
+dataframe1['y_center'] = dataframe1['y_center'] / video_height
+dataframe1['width'] = dataframe1['width'] / video_width
+dataframe1['heigth'] = dataframe1['heigth'] / video_height
 dataframe1['frame'] = dataframe1['frame'] - 1
 dataframe1.frame = dataframe1.frame.astype(int)
 dataframe1.object_class = dataframe1.object_class.astype(int)
